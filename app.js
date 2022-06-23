@@ -6,8 +6,6 @@ const productsRouter = require('./routes/products');
 const notFound = require('./middleware/not-found');
 const errorHandler = require('./middleware/error-handler');
 
-// async errors
-
 const app = express();
 
 // middleware
