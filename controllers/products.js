@@ -2,7 +2,7 @@ const Product = require('../models/product');
 
 const getProducts = async (req, res) => {
   // console.log(req.query);
-  const { featured, company, name, sort } = req.query;
+  const { featured, company, name, sort, fields } = req.query;
   const queryObj = {};
 
   if (featured) {
@@ -23,6 +23,10 @@ const getProducts = async (req, res) => {
     resultQuery = resultQuery.sort(sort.split(',').join(' '));
   } else {
     resultQuery = resultQuery.sort('CreatedAt');
+  }
+
+  if (fields) {
+    resultQuery = resultQuery.select(fields.split(','));
   }
 
   const products = await resultQuery;
