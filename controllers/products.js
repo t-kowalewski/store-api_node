@@ -4,7 +4,6 @@ const getProducts = async (req, res) => {
   // console.log(req.query);
   const { featured, company, name, sort } = req.query;
   const queryObj = {};
-  let sortStr = '';
 
   if (featured) {
     queryObj.featured = featured === 'true' ? true : false;
@@ -18,11 +17,15 @@ const getProducts = async (req, res) => {
     queryObj.name = { $regex: name, $options: 'i' };
   }
 
+  let resultQuery = Product.find(queryObj);
+
   if (sort) {
-    sortStr = sort.split(',').join(' ');
+    resultQuery = resultQuery.sort(sort.split(',').join(' '));
+  } else {
+    resultQuery = resultQuery.sort('CreatedAt');
   }
 
-  const products = await Product.find(queryObj).sort(sortStr);
+  const products = await resultQuery;
   res.status(200).json({ items: products.length, products });
 };
 
