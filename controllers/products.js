@@ -29,6 +29,12 @@ const getProducts = async (req, res) => {
     resultQuery = resultQuery.select(fields.split(','));
   }
 
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 10;
+  const skip = (page - 1) * limit;
+
+  resultQuery = resultQuery.skip(skip).limit(limit);
+
   const products = await resultQuery;
   res.status(200).json({ items: products.length, products });
 };
