@@ -5,6 +5,7 @@ const getProducts = async (req, res) => {
   const { featured, company, name, sort, fields, numericFilters } = req.query;
   const queryObj = {};
 
+  // Search logic (based on filter)
   if (featured) {
     queryObj.featured = featured === 'true' ? true : false;
   }
@@ -17,6 +18,7 @@ const getProducts = async (req, res) => {
     queryObj.name = { $regex: name, $options: 'i' };
   }
 
+  // Numeric filters logic
   if (numericFilters) {
     const operatorMap = {
       '>': '$gt',
@@ -38,16 +40,19 @@ const getProducts = async (req, res) => {
 
   let resultQuery = Product.find(queryObj);
 
+  // Sort logic
   if (sort) {
     resultQuery = resultQuery.sort(sort.split(',').join(' '));
   } else {
     resultQuery = resultQuery.sort('CreatedAt');
   }
 
+  // Select logic
   if (fields) {
     resultQuery = resultQuery.select(fields.split(','));
   }
 
+  // Limit & skipping logic for output (pages)
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 10;
   const skip = (page - 1) * limit;
