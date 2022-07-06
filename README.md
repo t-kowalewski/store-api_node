@@ -1,15 +1,10 @@
 ## Store API
 
----
-
 Allows users to request demo products from database.  
 Supports search/filtering (including numeric filters), sorting, selecting only specified fields and pagination.
 
 ### Usage
 
----
-
-\
 **Main endpoint:** _GET_ `localhost:3000/api/v1/products`
 
 ```
