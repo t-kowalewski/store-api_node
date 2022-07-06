@@ -32,7 +32,7 @@ _GET_ `localhost:3000/api/v1/products?name=dining+table`\
 _GET_ `localhost:3000/api/v1/products?company=ikea`\
 _GET_ `localhost:3000/api/v1/products?featured=true`\
 \
-**Numeric Filters** ( can be used with >, <, =, >=, <= )
+**Numeric Filters** ( can be used with `>`, `<`, `=`, `>=`, `<=` )
 
 _GET_ `localhost:3000/api/v1/products?numericFilters=price>40,rating>=4`\
 \
