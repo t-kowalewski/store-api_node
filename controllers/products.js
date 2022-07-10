@@ -52,7 +52,7 @@ const getProducts = async (req, res) => {
   if (sort) {
     resultQuery = resultQuery.sort(sort.split(',').join(' '));
   } else {
-    resultQuery = resultQuery.sort('createdAt');
+    resultQuery = resultQuery.sort('createdAt _id');
   }
 
   // Select logic
